@@ -79,7 +79,6 @@ if ($pdo->query("SELECT COUNT(*) FROM dim_film")->fetchColumn() == 0) {
     $pdo->commit();
 }
 
-// ===== Tampilan (header + CSS) =====
 function awal($judul) {
     $f = basename($_SERVER['PHP_SELF']);
     $a = $f == 'index.php' ? 'on' : '';
@@ -88,38 +87,24 @@ function awal($judul) {
 <!doctype html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title><?= h($judul) ?> | Data Warehouse Tiket</title>
-<style>
-:root{--bg:#eef1f6;--ink:#16223a;--mut:#5d6b82;--line:#cfd6e2;--red:#b0182b}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,'Segoe UI',sans-serif}
-h2,h3,.big{font-family:Georgia,'Times New Roman',serif;font-weight:700}
-header{background:#fff;border-bottom:1px solid var(--line);padding:0 24px;display:flex;gap:28px;align-items:center;flex-wrap:wrap}
-header b{font:700 19px Georgia,serif;padding:14px 0;margin-right:auto}
-header a{color:var(--mut);text-decoration:none;padding:16px 0 13px;border-bottom:3px solid transparent}
-header a.on{color:var(--ink);border-color:var(--red)}
-main{max-width:1000px;margin:28px auto;padding:0 16px}
-h2{font-size:26px;margin:0 0 18px}h3{font-size:17px;margin:0 0 12px}
-.ticket{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));background:#fff;border:1px solid var(--line);border-radius:6px;margin-bottom:18px}
-.ticket div{padding:16px 20px;position:relative}
-.ticket div+div{border-left:2px dashed var(--line)}
-.ticket div+div:before,.ticket div+div:after{content:'';position:absolute;left:-9px;width:16px;height:16px;border-radius:50%;background:var(--bg)}
-.ticket div+div:before{top:-9px}.ticket div+div:after{bottom:-9px}
-.ticket small{color:var(--mut)}.big{display:block;font-size:22px;line-height:1.3}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
-.panel{background:#fff;border:1px solid var(--line);border-radius:6px;padding:18px}
-.row{display:grid;grid-template-columns:150px 1fr auto;gap:10px;align-items:center;margin:9px 0;font-size:14px}
-.tr{height:8px;background:#e3e8f0;border-radius:2px}.tr i{display:block;height:100%;background:#9aa7bd;border-radius:2px}
-.top .tr i{background:var(--red)}.top span{font-weight:700}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{padding:8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
-label{display:block;margin:12px 0 4px;font-weight:600}
-select,input{font:inherit;width:100%;padding:8px;border:1px solid var(--line);border-radius:4px;background:#fff}
-button{font:inherit;margin-top:16px;padding:10px 18px;background:var(--red);color:#fff;border:0;border-radius:4px;cursor:pointer}
-a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-.ok{background:#e8f4ec;border:1px solid #b5d9c0;padding:10px 14px;border-radius:4px;margin-bottom:14px}
-.note{color:var(--mut);font-size:13px;margin-top:20px}
-</style></head><body>
-<header><b>Data Warehouse Tiket</b><a class="<?= $a ?>" href="index.php">Dashboard</a><a class="<?= $b ?>" href="input.php">Input penjualan</a></header>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+      <path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/>
+      <path d="M15 6v12" stroke-dasharray="2 2"/>
+    </svg>
+    DW TIKET
+  </div>
+  <nav>
+    <a class="<?= $a ?>" href="index.php">Dashboard</a>
+    <a class="<?= $b ?>" href="input.php">Input penjualan</a>
+  </nav>
+</header>
 <main>
 <?php
 }
