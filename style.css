@@ -1,0 +1,176 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap");
+
+:root{
+  --bg:#0d0c0b;
+  --bg2:#15120e;
+  --card:#1b1814;
+  --card2:#241f18;
+  --line:#353027;
+  --ink:#f3ead8;
+  --mut:#9a8f7b;
+  --gold:#e9a23b;
+  --gold2:#ffc65c;
+  --red:#d6453d;
+  --ok:#7fc79a;
+  --radius:14px;
+}
+
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{
+  margin:0;min-height:100vh;color:var(--ink);
+  font:15px/1.6 "DM Sans",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(900px 420px at 88% -12%, rgba(233,162,59,.11), transparent 60%),
+    radial-gradient(800px 380px at -8% 105%, rgba(214,69,61,.07), transparent 60%),
+    var(--bg);
+}
+
+/* ===== Header ===== */
+header{
+  position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+  padding:0 clamp(16px,4vw,40px);
+  background:rgba(13,12,11,.85);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.brand{
+  display:flex;align-items:center;gap:10px;margin-right:auto;padding:14px 0;
+  font-family:"Bebas Neue",sans-serif;font-size:28px;letter-spacing:.07em;color:var(--ink);
+}
+.brand svg{width:26px;height:26px;color:var(--gold)}
+nav{display:flex;gap:6px}
+nav a{
+  color:var(--mut);text-decoration:none;font-weight:500;font-size:14px;
+  padding:8px 14px;border-radius:999px;transition:color .2s,background .2s;
+}
+nav a:hover{color:var(--ink);background:rgba(255,255,255,.04)}
+nav a.on{color:#1a1208;background:var(--gold);font-weight:700}
+
+/* ===== Layout ===== */
+main{max-width:1080px;margin:40px auto 64px;padding:0 clamp(16px,4vw,32px)}
+h2{
+  font-family:"Bebas Neue",sans-serif;font-weight:400;
+  font-size:clamp(36px,5vw,50px);letter-spacing:.02em;line-height:1;margin:0 0 24px;
+}
+h3{font-family:"Bebas Neue",sans-serif;font-weight:400;font-size:24px;letter-spacing:.04em;margin:0 0 14px}
+
+/* ===== Kartu ringkasan berbentuk tiket ===== */
+.ticket{
+  position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  background:linear-gradient(135deg,#2a241b,#1b1814);
+  border:1px solid var(--line);border-radius:var(--radius);
+  margin-bottom:22px;
+  box-shadow:0 20px 40px -24px rgba(0,0,0,.7);
+}
+.ticket>div{padding:22px 24px;position:relative}
+.ticket>div+div{border-left:1px dashed #4a4236}
+.ticket>div+div::before,
+.ticket>div+div::after{
+  content:"";position:absolute;left:-10px;width:20px;height:20px;border-radius:50%;background:var(--bg);
+}
+.ticket>div+div::before{top:-10px}
+.ticket>div+div::after{bottom:-10px}
+.ticket small{
+  display:block;text-transform:uppercase;letter-spacing:.14em;
+  font-size:11px;font-weight:700;color:var(--mut);margin-bottom:6px;
+}
+.big{
+  display:block;font-family:"Bebas Neue",sans-serif;font-size:clamp(28px,3vw,38px);
+  line-height:1.05;color:var(--gold2);letter-spacing:.02em;word-break:break-word;
+}
+
+/* ===== Panel ===== */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.panel{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 22px 14px;
+}
+
+/* ===== Bar chart horizontal ===== */
+.row{
+  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,2fr) auto;
+  gap:14px;align-items:center;padding:9px 0;font-size:14px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.row:last-child{border-bottom:0}
+.row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row b{font-weight:500;font-variant-numeric:tabular-nums;color:var(--ink)}
+.tr{height:6px;background:#2e2820;border-radius:99px;overflow:hidden}
+.tr i{
+  display:block;height:100%;border-radius:99px;background:#6b6255;
+  animation:grow .9s cubic-bezier(.2,.8,.2,1) both;
+}
+.row:nth-child(2) .tr i{animation-delay:.06s}
+.row:nth-child(3) .tr i{animation-delay:.12s}
+.row:nth-child(4) .tr i{animation-delay:.18s}
+.row:nth-child(5) .tr i{animation-delay:.24s}
+.row:nth-child(6) .tr i{animation-delay:.30s}
+.top .tr i{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.top span{color:var(--gold2);font-weight:700}
+@keyframes grow{from{width:0}}
+
+/* ===== Tabel ===== */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{
+  font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);
+  font-weight:700;text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);
+  white-space:nowrap;
+}
+td{padding:12px;border-bottom:1px solid #2a2620;white-space:nowrap}
+tr:hover td{background:rgba(233,162,59,.05)}
+td:last-child,th:last-child,td:nth-last-child(2),th:nth-last-child(2){
+  text-align:right;font-variant-numeric:tabular-nums;
+}
+
+/* ===== Form ===== */
+label{
+  display:block;margin:18px 0 6px;font-size:12px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--mut);
+}
+select,input{
+  width:100%;font:inherit;color:var(--ink);background:var(--bg2);
+  border:1px solid var(--line);border-radius:10px;padding:11px 14px;
+  transition:border-color .2s,box-shadow .2s;
+}
+select{
+  appearance:none;-webkit-appearance:none;padding-right:38px;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239a8f7b' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;
+}
+select option{background:var(--card);color:var(--ink)}
+select:focus,input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(233,162,59,.18)}
+button{
+  width:100%;margin-top:24px;padding:14px;border:0;border-radius:10px;cursor:pointer;
+  font:700 16px "DM Sans",sans-serif;color:#1a1208;
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  transition:transform .15s,filter .2s;
+}
+button:hover{filter:brightness(1.06)}
+button:active{transform:translateY(1px)}
+
+/* ===== Notifikasi & catatan ===== */
+.ok{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(127,199,154,.1);border:1px solid rgba(127,199,154,.35);
+  color:var(--ok);padding:12px 16px;border-radius:10px;margin-bottom:18px;
+  animation:pop .4s ease both;
+}
+@keyframes pop{from{opacity:0;transform:translateY(-6px)}}
+.note{color:var(--mut);font-size:13px;margin-top:28px}
+code{background:var(--card2);padding:2px 6px;border-radius:5px;color:var(--gold2);font-size:12.5px}
+
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{
+  outline:2px solid var(--gold);outline-offset:2px;
+}
+
+/* ===== Responsif ===== */
+@media (max-width:640px){
+  .row{grid-template-columns:minmax(0,1fr) auto}
+  .row .tr{grid-column:1 / -1;order:3}
+  .ticket{grid-template-columns:1fr 1fr}
+  .ticket>div:nth-child(3){border-left:0}
+  .ticket>div:nth-child(n+3){border-top:1px dashed #4a4236}
+  .ticket>div+div::before,.ticket>div+div::after{display:none}
+}
