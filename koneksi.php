@@ -6,7 +6,7 @@ const HARI = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 
 try {
     $pdo = new PDO("mysql:host={$DB['host']};charset=utf8mb4", $DB['user'], $DB['pass'],
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]); 
 } catch (PDOException $e) {
     die('Tidak bisa konek ke MySQL. Pastikan MySQL di XAMPP sudah di-Start. Detail: ' . $e->getMessage());
 }
