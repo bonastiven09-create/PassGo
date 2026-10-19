@@ -6,7 +6,7 @@ const HARI = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 
 try {
     $pdo = new PDO("mysql:host={$DB['host']};charset=utf8mb4", $DB['user'], $DB['pass'],
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]); 
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
 } catch (PDOException $e) {
     die('Tidak bisa konek ke MySQL. Pastikan MySQL di XAMPP sudah di-Start. Detail: ' . $e->getMessage());
 }
@@ -37,6 +37,16 @@ function masuk($sql, $rows) {            // insert banyak baris, kembalikan daft
 function pilih($bobot) {                 // pilih acak berbobot
     $r = mt_rand(1, array_sum($bobot));
     foreach ($bobot as $k => $b) if (($r -= $b) <= 0) return $k;
+}
+
+// ===== Logo PassGo: tiket yang dilintasi panah (lihat bagian Logo di tentang.php) =====
+function logo_svg($cls = 'logo') {
+    return '<svg class="' . $cls . '" viewBox="0 0 32 32" aria-hidden="true">'
+         . '<rect x="2" y="8" width="28" height="16" rx="3.5" fill="currentColor"/>'
+         . '<circle class="cut" cx="2" cy="16" r="2.2"/>'
+         . '<circle class="cut" cx="30" cy="16" r="2.2"/>'
+         . '<path class="arrow" d="M13.5 16h8M19.5 12.8 22.7 16l-3.2 3.2" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
+         . '</svg>';
 }
 
 // ===== Data contoh (hanya sekali, saat tabel masih kosong) =====
@@ -79,30 +89,32 @@ if ($pdo->query("SELECT COUNT(*) FROM dim_film")->fetchColumn() == 0) {
     $pdo->commit();
 }
 
+// ===== Tampilan: header PassGo + menu =====
 function awal($judul) {
     $f = basename($_SERVER['PHP_SELF']);
-    $a = $f == 'index.php' ? 'on' : '';
-    $b = $f == 'input.php' ? 'on' : '';
+    $menu = [
+        'index.php'   => 'Dashboard',
+        'input.php'   => 'Input penjualan',
+        'tentang.php' => 'Tentang PassGo',
+    ];
 ?>
 <!doctype html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title><?= h($judul) ?> | Data Warehouse Tiket</title>
+<title><?= h($judul) ?> | PassGo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head><body>
 <header>
-  <div class="brand">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
-      <path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/>
-      <path d="M15 6v12" stroke-dasharray="2 2"/>
-    </svg>
-    DW TIKET
-  </div>
+  <a class="brand" href="index.php">
+    <?= logo_svg() ?>
+    <span>PassGo</span>
+  </a>
   <nav>
-    <a class="<?= $a ?>" href="index.php">Dashboard</a>
-    <a class="<?= $b ?>" href="input.php">Input penjualan</a>
+    <?php foreach ($menu as $file => $label): $on = $f == $file; ?>
+      <a class="<?= $on ? 'on' : '' ?>" href="<?= $file ?>"<?= $on ? ' aria-current="page"' : '' ?>><?= $label ?></a>
+    <?php endforeach ?>
   </nav>
 </header>
 <main>
